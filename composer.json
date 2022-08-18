@@ -1,0 +1,29 @@
+{
+  "name": "it-bens/reflection-constructor",
+  "description": "A class to find a constructor argument by an object class via Reflection API.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Bens",
+      "email": "martin.bens@it-bens.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "captainhook/plugin-composer": "^5.3",
+    "roave/security-advisories": "dev-latest",
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "captainhook/plugin-composer": true
+    }
+  },
+  "autoload": {
+    "psr-4": { "ITB\\ReflectionConstructor\\": "src/" }
+  }
+}
