@@ -33,14 +33,19 @@ final class ReflectionConstructor
 
     /**
      * @param string $className
+     * @param string[] $excludedParameters
      * @return string|null
      * @throws ReflectionException
      */
-    public function extractParameterNameForClassName(string $className): ?string
+    public function extractParameterNameForClassName(string $className, array $excludedParameters = []): ?string
     {
         $matchingParameters = array_filter(
             $this->constructorParameters,
-            static function (ReflectionParameter $parameter) use ($className): bool {
+            static function (ReflectionParameter $parameter) use ($className, $excludedParameters): bool {
+                if (in_array($parameter->getName(), $excludedParameters)) {
+                    return false;
+                }
+
                 $type = $parameter->getType();
                 if (null === $type) {
                     return false;
@@ -77,11 +82,12 @@ final class ReflectionConstructor
 
     /**
      * @param object $object
+     * @param string[] $excludedParameters
      * @return string|null
      * @throws ReflectionException
      */
-    public function extractParameterNameForObject(object $object): ?string
+    public function extractParameterNameForObject(object $object, array $excludedParameters = []): ?string
     {
-        return $this->extractParameterNameForClassName(get_class($object));
+        return $this->extractParameterNameForClassName(get_class($object), $excludedParameters);
     }
 }
